@@ -1,0 +1,5 @@
+#!/opt/homebrew/bin/fish
+
+#usage: texpreview line file.tex file.pdf
+
+kitty @ --to $KITTY_LISTEN_ON close-window --match title:termpdf

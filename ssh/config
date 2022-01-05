@@ -1,0 +1,17 @@
+Host *
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519
+
+Host z
+  HostName commie.zephyr.network
+  User cole
+Host ridgeback
+	User ubuntu
+	HostName 152.67.248.193
+Host rb
+	User ubuntu
+	HostName 152.67.248.193
+
+Host fireball
+	User ubuntu
+	HostName 129.159.46.212

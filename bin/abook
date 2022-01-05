@@ -1,0 +1,3 @@
+#!/opt/homebrew/bin/fish
+
+contacts $argv | tail -n +2

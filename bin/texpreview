@@ -1,0 +1,14 @@
+#!/opt/homebrew/bin/fish
+
+#usage: texpreview line file.tex file.pdf
+
+set t "termpdf"
+alias k="kitty @ --to $KITTY_LISTEN_ON"
+
+if not k set-window-title --match title:$t $t
+	k goto-layout tall
+	set hash (md5 -q $argv[3]) 
+	echo '{"citekey": null, "papersize": 3, "page": 0, "logicalpage": "1", "first_page_offset": 1, "chapter": 0, "rotation": 0, "autocrop": false, "manualcrop": false, "manualcroprect": [null, null], "alpha": true, "invert": true, "tint": true}' > ~/.cache/termpdf.py/$hash
+	k launch --title $t termpdf.py $argv[3]
+	# terminal-notifier -message $argv[1]
+end

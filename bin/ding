@@ -1,0 +1,5 @@
+#!/opt/homebrew/bin/fish
+pumpitup
+say -v Alex ding ding!
+printf \a \a
+

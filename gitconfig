@@ -1,0 +1,20 @@
+[user]
+	name = Cole Wilson
+	email = cole@colewilson.xyz
+	signingkey = 729E7A81294B1A5BBF554FC698689244FFA43C60
+	useConfigOnly = true
+[core]
+	editor = nvim
+	hideDotFiles = true
+	excludesfile = /Users/cole/.global.gitignore
+[init]
+	defaultBranch = main
+[alias]
+	c = "!sh -c fgh clone $1"
+	p = !sh -c \"git add . && git commit && git push\"
+[color]
+	advice = auto
+[commit]
+	gpgsign = true
+[help]
+	autocorrect = 7

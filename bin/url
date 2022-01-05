@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+
+import re
+import sys
+import argparse
+import requests
+
+TOKEN = input('password > ')
+BASE = "https://shorty.ridgeback.cole.ws/"
+args = sys.argv[1:]
+h = {"Authorization": f"Bearer {TOKEN}"}
+
+if args[0] == 'list':
+    for link in requests.get(BASE + "/api/link", headers=h).json()['data']:
+        print(link)
+elif args[0] == 'delete':
+    for snail in args[1:]:
+        requests.delete(BASE + "/api/link/" + snail, headers=h)
+else:
+    for snail in args:
+        data = {}
+        if snail.startswith('{'):
+            desc = re.findall(r"^\{(.*?)\}", snail)[0]
+            data["public"], data["description"] = True, desc
+            snail = snail.replace("{" + desc + "}", "", 1)
+        if snail.startswith('['):
+            name = re.findall(r"^\[(.*?)\]", snail)[0]
+            data["name"] = name
+            snail = snail.replace(f"[{name}]", "", 1)
+        data["url"] = snail
+        response = requests.post(BASE + "/api/link", headers=h, json=data)
+        response = response.json()
+        if response['ok']:
+            print("https://cole.ws/+" + response['data']['name'])
+        else:
+            print(response['err'], file=sys.stdout)
+            exit(1)

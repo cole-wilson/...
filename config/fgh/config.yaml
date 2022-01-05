@@ -1,0 +1,6 @@
+clone_clipboard: true
+structure:
+  - OWNER
+structure_root: projects
+lowercase_lang: true
+space_character: "_"

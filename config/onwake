@@ -1,0 +1,41 @@
+#!/opt/homebrew/bin/fish
+
+cd /Users/cole/
+
+set ssid (/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID:/ {print $2}')
+
+pumpitup
+
+if contains $ssid KitchenTableCreative Recess
+	exit 0
+end
+
+afplay -v 1 .config/warning.aiff 
+osascript -e '
+tell application "QuickTime Player"
+quit
+end tell
+
+set theCurrentDate to current date
+set dateTime to short date string of theCurrentDate & space & time string of theCurrentDate
+set P to offset of "/" in dateTime
+set dateTime to text 1 through (P - 1) of dateTime & "-" & text (P + 1) through -1 of dateTime
+set P to offset of "/" in dateTime
+set dateTime to text 1 through (P - 1) of dateTime & "-" & text (P + 1) through -1 of dateTime
+set theFilePath to "/Users/cole/.logins/" & dateTime & ".mov"
+
+tell application "QuickTime Player"
+set newMovieRecording to new movie recording
+tell newMovieRecording
+start
+delay 10
+pause
+save newMovieRecording in POSIX file theFilePath
+stop
+close newMovieRecording
+end tell
+quit
+end tell
+'
+stfu
+exit 0

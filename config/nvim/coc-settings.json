@@ -1,0 +1,17 @@
+{
+	"snippets.ultisnips.directories": [
+		"UltiSnips",
+		"~/.config/nvim/autoload/plugged/vim-snippets/UltiSnips/"
+	],
+	"snippets.userSnippetsDirectory": "~/.config/nvim/snips",
+	"coc.preferences.formatOnSaveFiletypes": [
+		"css",
+		"markdown",
+		"javascript",
+		"graphql",
+		"html",
+		"yaml",
+		"json",
+		"python"
+	]
+}

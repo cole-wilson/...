@@ -1,0 +1,31 @@
+#!/opt/homebrew/bin/fish
+if set -q argv[1]
+	set bind_address "127.0.0.1"
+	set from_split (string split : $argv[1])
+	set from $from_split[1]
+	set from_port $from_split[2]
+
+	if set -q argv[2]
+		if set -q argv[3]
+			set bind_address $argv[3]
+		end
+		set to_split (string split : $argv[2])
+		set to $to_split[1]
+		if set -q to_split[2]
+			set to_port $to_split[2]
+		else
+			set to_port $from_port
+		end
+	else
+		set to localhost
+		set to_port $from_port
+	end
+
+	echo forwarding (set_color blue)port $from_port on $from (set_color reset)to (set_color green)port $to_port on $to(set_color reset), binding on $bind_address
+	set_color red
+	echo /usr/bin/ssh -N -L $bind_address:$to_port:$to:$from_port $from
+	set_color reset
+	/usr/bin/ssh -N -L $bind_address:$to_port:$to:$from_port $from
+else
+	echo "usage: forward from:port [to:port] [bind]"
+end

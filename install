@@ -1,0 +1,19 @@
+#!/bin/bash
+
+platform='unknown'
+unamestr=`uname`
+if ! lsrc &> /dev/null
+then
+	if [[ "$unamestr" == 'Darwin' ]]; then
+	   brew install rcm
+	elif [[ "$platform" == 'Linux' ]]; then
+		curl -LO https://thoughtbot.github.io/rcm/dist/rcm-1.3.4.tar.gz &&
+		tar -xvf rcm-1.3.4.tar.gz &&
+		cd rcm-1.3.4 &&
+		./configure &&
+		make &&
+		sudo make install
+	fi
+fi
+cp .../rcrc ~/.rcrc
+rcup

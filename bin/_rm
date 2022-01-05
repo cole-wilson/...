@@ -1,0 +1,27 @@
+#!/usr/bin/env fish
+
+
+set command "rm $argv"
+set okaytogo false
+
+echo "You are running the following command:"
+echo -e "\t\trm $argv"
+
+switch $command
+    case "*-rf*"
+        read -l conf -P "Retype the command please > "
+        sleep 2
+        if [ "$conf" = "$command" ]; set okaytogo true; end;
+    case "*"
+        read -l conf -P "Are you sure you wish to continue? [y/N] "
+        if [ "$conf" = "y" ]; set okaytogo true; end;
+end
+
+if $okaytogo
+    echo "yay!"
+    /bin/rm $argv
+else
+    set_color red
+    echo "the command was not run"
+    exit 100
+end

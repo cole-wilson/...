@@ -1,0 +1,4 @@
+DOTFILES_DIRS="..."
+HOSTNAME="hippogriff"
+UNDOTTED="bin"
+EXCLUDES="install README.md"

@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+import flask
+from blessed import Terminal
+import logging
+# log = logging.getLogger('werkzeug')
+# log.setLevel(logging.ERROR)
+
+term = Terminal()
+app = flask.Flask(__name__)
+
+@app.route("/", defaults={"path":"/"})
+@app.route("/<path:path>")
+def main(path):
+    print(term.red(path))
+    for k, v in flask.request.headers:
+        print(term.blue(k), term.green(v), sep="\t")
+app.run("0.0.0.0")
