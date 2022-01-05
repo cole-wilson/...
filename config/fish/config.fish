@@ -21,6 +21,8 @@ export BAT_PAGER="less -R --"
 export DISPLAY=":0"
 
 # Aliases
+alias dotpull="cd ~/... && git pull && cd -"
+alias dotpush="cd ~/... && git p && cd -"
 alias lg="lazygit"
 alias _ssh="ssh"
 alias _cat="/bin/cat"

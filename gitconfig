@@ -18,3 +18,5 @@
 	gpgsign = true
 [help]
 	autocorrect = 7
+[gpg]
+	program = gpg

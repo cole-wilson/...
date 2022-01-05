@@ -1,4 +1,4 @@
 DOTFILES_DIRS="..."
 HOSTNAME="hippogriff"
-UNDOTTED="bin"
+UNDOTTED="bin Brewfile Library"
 EXCLUDES="install README.md"
