@@ -18,10 +18,18 @@ noremap <leader>9 :tablast<cr>
 let g:mapleader = "\<Space>"
 let g:coc_node_path = "/opt/homebrew/bin/node"
 let g:python3_host_prog = "/opt/homebrew/bin/python3"
+let g:vimspector_enable_mappings='HUMAN'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.htm'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+let g:closetag_filetypes = 'html,xhtml,phtml'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+let g:closetag_emptyTags_caseSensitive = 1
+
 
 syntax enable                           " Enables syntax highlighting
 " set timeoutlen=500
 set ignorecase
+set noruler
 set whichwrap+=<,>,[,]
 set hidden                              " Required to keep multiple buffers open multiple buffers
 set nowrap                              " Display long lines as just one line
@@ -61,7 +69,17 @@ set noshowmode
 command JSON execute '%!python3 -m json.tool'
 command Gist :w !gh gist create -f % | tail -n 1 | pbcopy
 
-nnoremap <Space>/ :Commentary<CR>
+" inoremap <Up> <Nop>
+" inoremap <Down> <Nop>
+" inoremap <Left> <Nop>
+" inoremap <Right> <Nop>
+
+" noremap <Up> <Nop>
+" noremap <Down> <Nop>
+" noremap <Left> <Nop>
+" noremap <Right> <Nop>
+
+noremap <Space>/ :Commentary<CR>
 vnoremap <Space>/ :Commentary<CR>
 vmap <leader>a <Plug>(coc-codeaction-selected)
 nmap <leader>a <Plug>(coc-codeaction-selected)
@@ -76,13 +94,19 @@ hi SpellBad cterm=underline
 hi SpellBad gui=undercurl guisp=#ff0000
 
 " Autocmd
-autocmd BufWinEnter,WinEnter term://* startinsert
-autocmd BufRead,BufNewFile *.md,*.txt,*.rst setlocal spell
+autocmd BufEnter term://* exec ':startinsert'
+autocmd BufRead,BufNewFile *.md,*.txt,*.eml,*.rst setlocal spell
+function! BinaryCheck()
+    if system('file -ib ' . shellescape(expand('%:p'))) !~# '^text/plain'
+		if confirm("open `".expand("%:t")."` as a binary file?", "&yes\n&no")
+			exec ':Hexedit'
+		endif
+	endif
+endfun
+" autocmd BufRead * call BinaryCheck()
+
 
 function! PlaySound()
-	let c_lnum = line('.')
-	let c_col = col('.')
-	let c = getline(c_lnum)[c_col - 2]
 	if col('.') != 1
 		silent! exec '!afplay ~/.config/nvim/support/typewriter.aiff &'
 	else
@@ -90,14 +114,18 @@ function! PlaySound()
 	endif
 endfunction
 function! TypewriterLayout()
-	colorscheme typewriter
-	let s:hidden_all = 1
-	set noshowmode
-	set noruler
 	set laststatus=0
-	set noshowcmd
-	set showtabline=1
+	call system("typewriter on &")
+	colorscheme typewriter
+endfunction
+function! TypewriterLayoutOff()
+	set laststatus=1
+	call system("typewriter off &")
+	colorscheme ayu
 endfunction
 
-autocmd CursorMovedI *.txt,*.eml call PlaySound()
+" autocmd CursorMoved *.txt,*.eml silent! exec '!afplay ~/.config/nvim/support/roll.wav &'
+" autocmd CursorMovedI *.txt,*.eml call PlaySound()
 autocmd VimEnter *.txt,*.eml call TypewriterLayout()
+autocmd FocusLost,VimLeave *.txt,*.eml call TypewriterLayoutOff()
+

@@ -4,6 +4,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
+	" Plug 'tpope/vim-liquid'
 	Plug 'jamessan/vim-gnupg'
 	Plug 'ayu-theme/ayu-vim'
 	Plug 'jiangmiao/auto-pairs'
@@ -17,8 +18,10 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 	Plug 'mhinz/vim-startify'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'honza/vim-snippets'
-	Plug 'sheerun/vim-polyglot'
+	Plug 'alvan/vim-closetag'
 	Plug 'logico/typewriter-vim'
 	Plug 'lervag/vimtex'
 	Plug 'liuchengxu/vim-which-key'
+	Plug 'puremourning/vimspector'
+	Plug 'wakatime/vim-wakatime'
 call plug#end()

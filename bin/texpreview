@@ -1,14 +1,29 @@
 #!/opt/homebrew/bin/fish
 
-#usage: texpreview line file.tex file.pdf
-
-set t "termpdf"
+set usage "usage: sidepreview command [args ...]"\n"       sidepreview --close  commandname"\n"       sidepreview --send   commandname text [...]"\n"       sidepreview --signal commandname [SIGNAL]"
 alias k="kitty @ --to $KITTY_LISTEN_ON"
 
-if not k set-window-title --match title:$t $t
+if not set -q argv[1]
+	echo $usage
+	exit 1
+end
+
+if [ $argv[1] = "--close" ]
+	k close-window --match title:(md5 -qs $argv[2])
+	exit $status
+end
+if [ $argv[1] = "--send" ]
+	k send-text --match title:(md5 -qs $argv[2]) $argv[3..]
+	exit $status
+end
+if [ $argv[1] = "--signal" ]
+	k signal-child --match title:(md5 -qs $argv[2]) $argv[3..]
+	exit $status
+end
+
+set t (md5 -qs $argv[1])
+
+if not k set-window-title --match title:$t $t 2&>/dev/null
 	k goto-layout tall
-	set hash (md5 -q $argv[3]) 
-	echo '{"citekey": null, "papersize": 3, "page": 0, "logicalpage": "1", "first_page_offset": 1, "chapter": 0, "rotation": 0, "autocrop": false, "manualcrop": false, "manualcroprect": [null, null], "alpha": true, "invert": true, "tint": true}' > ~/.cache/termpdf.py/$hash
-	k launch --title $t termpdf.py $argv[3]
-	# terminal-notifier -message $argv[1]
+	k launch --title $t $argv 2&>/dev/null
 end

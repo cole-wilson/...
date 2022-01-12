@@ -1,5 +1,3 @@
-# add chezmoi
-
 # Paths
 set -gx HOMEBREW_PREFIX "/opt/homebrew";
 set -gx HOMEBREW_CELLAR "/opt/homebrew/Cellar";
@@ -12,15 +10,21 @@ fish_add_path ~/.gem/ruby/3.0.0/bin
 fish_add_path ~/.cargo/bin
 fish_add_path ~/go/bin
 fish_add_path /System/Volumes/Data/Users/cole/Library/Android/sdk/emulator/
-# set -U fish_user_paths ~/miniforge3/bin $fish_user_paths
+fish_add_path /opt/homebrew/opt/node@14/bin
+set -U fish_user_paths /opt/homebrew/opt/coreutils/libexec/gnubin $fish_user_paths
+set -U fish_user_paths /opt/homebrew/bin $fish_user_paths
 set -gx SDKROOT (xcrun --show-sdk-path)
 
 export LIBRARY_PATH="/opt/homebrew/lib/"
 export CPATH="/opt/homebrew/include/"
 export BAT_PAGER="less -R --"
 export DISPLAY=":0"
+export GPG_TTY=(tty)
 
 # Aliases
+alias grep="mg"
+alias mg="kitty +kitten hyperlinked_grep --smart-case"
+alias ls="ls --hyperlink=auto --color=auto"
 alias dotpull="cd ~/... && git pull && cd -"
 alias dotpush="cd ~/... && git p && cd -"
 alias lg="lazygit"
@@ -166,15 +170,17 @@ end
 
 # starship init fish | source
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-status is-interactive && eval /Users/cole/miniforge3/bin/conda "shell.fish" "hook" $argv | source
-# <<< conda initialize <<<
-
-fish_add_path /opt/homebrew/opt/node@14/bin
-
 
 set HB_CNF_HANDLER (brew --repository)"/Library/Taps/homebrew/homebrew-command-not-found/handler.fish"
 if test -f $HB_CNF_HANDLER
    source $HB_CNF_HANDLER
 end
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /Users/cole/miniforge3/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
+
+
+# The next line updates PATH for Netlify's Git Credential Helper.
+test -f '/Users/cole/Library/Preferences/netlify/helper/path.fish.inc' && source '/Users/cole/Library/Preferences/netlify/helper/path.fish.inc'

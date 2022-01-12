@@ -30,7 +30,7 @@ tab_bar_edge bottom
 tab_bar_style fade
 tab_separator "|"
 
-editor /opt/homebrew/bin/nvim
+env EDITOR=nvim
 listen_on unix:/var/tmp/mykitty
 
 default_pointer_shape arrow
@@ -76,7 +76,7 @@ allow_remote_control yes
 
 
 # BEGIN_KITTY_THEME
-# Ayu Mirage
+# Flat
 include current-theme.conf
 # END_KITTY_THEME
 #

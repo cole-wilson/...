@@ -9,9 +9,9 @@
 		"markdown",
 		"javascript",
 		"graphql",
-		"html",
 		"yaml",
 		"json",
 		"python"
-	]
+	],
+	"emmet.priority": 103
 }

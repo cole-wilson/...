@@ -16,7 +16,4 @@ let g:airline_theme = 'onedark'
 " Always show tabs
 " set showtabline=2
 
-" We don't need to see things like -- INSERT -- anymore
-set noshowmode
 
-autocmd BufEnter *.txt,*.eml let g:airline_theme = 'base16_grayscale'

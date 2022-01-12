@@ -1,0 +1,24 @@
+#!/opt/homebrew/bin/fish
+
+if not set -q argv[1]
+	echo "usage: typewriter on"\n"       typewriter off"
+	exit 1
+end
+
+alias k='kitty @ --to $KITTY_LISTEN_ON set-colors'
+
+if [ $argv[1] = "on" ]
+	k \
+		background=#eee \
+		foreground=black \
+		tab_bar_background=#eee \
+		active_tab_background=#eee \
+		inactive_tab_background=#eee
+end
+if [ $argv[1] = "off" ]
+	k \
+	    ~/.config/kitty/kitty.conf \
+		tab_bar_background=none \
+		active_tab_background=#eee \
+		inactive_tab_background=#999
+end
